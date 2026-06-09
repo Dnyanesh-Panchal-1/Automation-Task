@@ -1,4 +1,27 @@
 This repository contains the completed Automation Tasks.
+This project is developed using Playwright with TypeScript for automating the SauceDemo web application. The framework follows the Page Object Model approach with reusable page classes, helper utilities,tagged execution and HTML reporting for better maintability.
+
+Application under text: https://www.saucedemo.com
+
+Prerequisites:
+Make sure the following are installed on the system: Node.js, VS Code. Playwright and TypeScript.
+
+Project Setup:
+Clone or open the project in VS Code.
+1. Install the dependencies  by running the command:
+npm install
+2. Install the Playwright browsers by running this command:
+npx playwright imstall
+
+Test Execution:
+Run all test cases by running this command:
+npx playwright test
+
+Run all tests in UI mode by running this command:
+npx playwright test --ui
+
+Open the HTML Report by running this command:
+npx playwright show-report
 
 DAY 1
 -
@@ -86,3 +109,22 @@ represent the whole application data.
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DAY 3
+-
+Day 3 Objectives
+1. Implement Project Object Model architecture
+2. Improve framework readability and maintainability
+3. Reduce duplicate code using reusable methods and helper functions
+4. Implement tagged test execution.
+
+Tasks Completed
+1. Created Page Object Classes
+2. Add helper class
+3. Add tags to the code
+4. Refactored existing test scripts to use reusable page methods
+5. Executed all test cases successfully and generated HTML reports.
+
+CHallenges Faced:
+Faced syntax and import path issues during framework restructuring.
+Faced TypeScript errors while using assertions directly on locators inside page classes. Solved 
+them by wrapping assertions with expect(). 
