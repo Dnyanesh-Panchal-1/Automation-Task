@@ -12,20 +12,43 @@ Project Setup:
 
 Clone or open the project in VS Code.
 1. Install the dependencies  by running the command:
+```bash
+
 npm install
+
+```
 2. Install the Playwright browsers by running this command:
-npx playwright imstall
+```bash
+
+npx playwright install
+
+```
+
 
 Test Execution:
 -
 Run all test cases by running this command:
+```bash
+
 npx playwright test
 
+```
+
+
 Run all tests in UI mode by running this command:
+```bash
+
 npx playwright test --ui
 
+```
+
+
 Open the HTML Report by running this command:
+```bash
+
 npx playwright show-report
+
+```
 
 DAY 1
 -
@@ -128,7 +151,7 @@ Tasks Completed
 4. Refactored existing test scripts to use reusable page methods
 5. Executed all test cases successfully and generated HTML reports.
 
-CHallenges Faced:
+Challenges Faced:
 Faced syntax and import path issues during framework restructuring.
 Faced TypeScript errors while using assertions directly on locators inside page classes. Solved 
 them by wrapping assertions with expect(). 
