@@ -1,12 +1,15 @@
 This repository contains the completed Automation Tasks.
+-
 This project is developed using Playwright with TypeScript for automating the SauceDemo web application. The framework follows the Page Object Model approach with reusable page classes, helper utilities,tagged execution and HTML reporting for better maintability.
-
+-
 Application under text: https://www.saucedemo.com
 
 Prerequisites:
 Make sure the following are installed on the system: Node.js, VS Code. Playwright and TypeScript.
 
 Project Setup:
+-
+
 Clone or open the project in VS Code.
 1. Install the dependencies  by running the command:
 npm install
@@ -14,6 +17,7 @@ npm install
 npx playwright imstall
 
 Test Execution:
+-
 Run all test cases by running this command:
 npx playwright test
 
