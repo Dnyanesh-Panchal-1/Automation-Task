@@ -1,4 +1,6 @@
 import {Page, expect, Locator} from '@playwright/test';
+import { routes } from '../constants/routes';
+import { messages } from '../constants/messages';
 
 export class CheckoutPage {
     readonly page: Page;
@@ -41,6 +43,6 @@ export class CheckoutPage {
     }
 
     async verifyOrderCompletion(): Promise<void> {
-        await expect(this.completeHeader).toHaveText('Thank you for your order!');
+        await expect(this.completeHeader).toHaveText(messages.orderSuccess);
     }       
 }
