@@ -1,6 +1,7 @@
 import {test, expect} from '@playwright/test';
 import { users } from '../test-data/users';
 import {LoginPage} from '../pages/LoginPage';
+import { routes } from '../constants/routes';
 
 const validUser = users[0];
 const lockedOutUser = users[1];
@@ -39,6 +40,6 @@ test('TC_013: User should be able to logout successfully @smoke', async ({page})
   await loginPage.login(validUser.username, validUser.password);
  await page.locator('#react-burger-menu-btn').click();
   await page.locator('#logout_sidebar_link').click();
-  await expect(page).toHaveURL('https://www.saucedemo.com/')
+  await expect(page).toHaveURL(routes.login);
 });
 

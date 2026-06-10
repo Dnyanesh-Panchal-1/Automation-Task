@@ -1,9 +1,11 @@
-import {Page, expect} from '@playwright/test';
+import {Page, expect, Locator} from '@playwright/test';
 
 export class CartPage {
     readonly page: Page;
+    readonly checkoutButton: Locator;
     constructor(page: Page) {
         this.page = page;
+        this.checkoutButton = page.locator('[data-test="checkout"]');
     }
 
     async verifyProductInCart(productName: string): Promise<void> {
@@ -11,6 +13,6 @@ export class CartPage {
     }
 
     async checkout(): Promise<void> {
-        await this.page.locator('[data-test="checkout"]').click();
+        await this.checkoutButton.click();
     }
 }

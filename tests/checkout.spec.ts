@@ -4,6 +4,9 @@ import {LoginPage} from '../pages/LoginPage';
 import {ProductsPage} from '../pages/ProductsPage';
 import {CartPage} from '../pages/CartPage';
 import {CheckoutPage} from '../pages/CheckoutPage';
+import {checkoutData} from '../test-data/checkoutData';
+import {messages} from '../constants/messages';
+import { routes } from '../constants/routes';
 
 const validUser = users[0];
 let loginPage: LoginPage;
@@ -25,36 +28,36 @@ test.beforeEach(async ({page}) => {
 });
 
 test('TC_010: Checkout with valid details @checkout', async ({page}) => {
-  await checkoutPage.fillCheckoutInformation('Bruce', 'Wayne', '401101');
+  await checkoutPage.fillCheckoutInformation(checkoutData.firstName, checkoutData.lastName, checkoutData.postalCode);
   await checkoutPage.continueCheckout();
 
     await expect(page).toHaveURL(/checkout-step-two/);
 });
 
 test('TC_011: Checkout with missing first name @checkout @negative', async ({page}) => {
-    await checkoutPage.fillCheckoutInformation('', 'Wayne', '401101');
+    await checkoutPage.fillCheckoutInformation('', checkoutData.lastName, checkoutData.postalCode);
     await checkoutPage.continueCheckout();
 
-    await expect(page.locator('[data-test="error"]')).toHaveText('Error: First Name is required');
+    await expect(page.locator('[data-test="error"]')).toHaveText(messages.firstNameRequired);
 });
 
 test('TC_012: Checkout with missing postal code @checkout @negative', async ({page}) => {
-    await checkoutPage.fillCheckoutInformation('Bruce', 'Wayne', '');
+    await checkoutPage.fillCheckoutInformation(checkoutData.firstName, checkoutData.lastName, '');
     await checkoutPage.continueCheckout();
 
-    await expect(page.locator('[data-test="error"]')).toHaveText('Error: Postal Code is required');
+    await expect(page.locator('[data-test="error"]')).toHaveText(messages.postalCodeRequired);
 });
 
 test('TC_014: Complete checkout process @checkout', async ({page}) => {
-    await checkoutPage.fillCheckoutInformation('Bruce', 'Wayne', '401101');
+    await checkoutPage.fillCheckoutInformation(checkoutData.firstName, checkoutData.lastName, checkoutData.postalCode);
     await checkoutPage.continueCheckout();
     await checkoutPage.finishOrder();
     await checkoutPage.verifyOrderCompletion();
 });
 
 test('TC_015: Cancel checkout process @checkout', async ({page}) => {
-    await checkoutPage.fillCheckoutInformation('Bruce', 'Wayne', '401101');
+    await checkoutPage.fillCheckoutInformation(checkoutData.firstName, checkoutData.lastName, checkoutData.postalCode);
     await checkoutPage.continueCheckout();
     await page.locator('[data-test="cancel"]').click();
-    await expect(page).toHaveURL(/inventory/);
+    await expect(page).toHaveURL(routes.products);
 });

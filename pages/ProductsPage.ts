@@ -1,12 +1,19 @@
-import {Page,expect} from '@playwright/test';
+import {Page,expect,Locator} from '@playwright/test';
 
 export class ProductsPage {
     readonly page: Page;
+    readonly inventoryItems: Locator;
+    readonly cartLink: Locator;
+    readonly cartBadge: Locator;
+
     constructor(page: Page) {
         this.page = page;
+        this.inventoryItems = this.page.locator('.inventory_item');
+        this.cartLink = this.page.locator('.shopping_cart_link');
+        this.cartBadge = this.page.locator('.shopping_cart_badge');
     }
     async verifyProductsPageIsVisible(): Promise<void> {
-        await expect(this.page.locator('.inventory_item')).toHaveCount(6);
+        await expect(this.inventoryItems).toHaveCount(6);
     }
 
     async addProductToCart(productId: string): Promise<void> {
@@ -18,10 +25,10 @@ export class ProductsPage {
     }
 
     async goToCart(): Promise<void> {
-        await this.page.locator('.shopping_cart_link').click();
+        await this.cartLink.click();
     }
 
     async verifyCartCount(expectedCount: number): Promise<void> {
-        await expect(this.page.locator('.shopping_cart_badge')).toHaveText(expectedCount.toString());
+        await expect(this.cartBadge).toHaveText(expectedCount.toString());
     }
 }

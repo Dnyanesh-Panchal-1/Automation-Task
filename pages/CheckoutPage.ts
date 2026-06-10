@@ -1,29 +1,46 @@
-import {Page, expect} from '@playwright/test';
+import {Page, expect, Locator} from '@playwright/test';
 
 export class CheckoutPage {
     readonly page: Page;
+    readonly firstNameInput: Locator;
+    readonly lastNameInput: Locator;
+    readonly postalCodeInput: Locator;
+    readonly continueButton: Locator;
+    readonly finishButton: Locator; 
+    readonly errorMessage: Locator;
+    readonly completeHeader: Locator;
+    readonly cancelButton: Locator;
+
     constructor(page: Page) {
         this.page = page;
+        this.firstNameInput = page.locator('[data-test="firstName"]');
+        this.lastNameInput = page.locator('[data-test="lastName"]');
+        this.postalCodeInput = page.locator('[data-test="postalCode"]');
+        this.continueButton = page.locator('[data-test="continue"]');
+        this.finishButton = page.locator('[data-test="finish"]');
+        this.errorMessage = page.locator('[data-test="error"]');
+        this.completeHeader = page.locator('.complete-header');
+        this.cancelButton = page.locator('[data-test="cancel"]');
     }
     async fillCheckoutInformation(firstName: string, lastName: string, postalCode: string): Promise<void> {
-        await this.page.locator('[data-test="firstName"]').fill(firstName);
-        await this.page.locator('[data-test="lastName"]').fill(lastName);
-        await this.page.locator('[data-test="postalCode"]').fill(postalCode);
+        await this.firstNameInput.fill(firstName);
+        await this.lastNameInput.fill(lastName);
+        await this.postalCodeInput.fill(postalCode);
     }
 
     async continueCheckout(): Promise<void> {
-        await this.page.locator('[data-test="continue"]').click();
+        await this.continueButton.click();
     }
 
     async verifyValidationMessage(expectedMessage: string): Promise<void> {
-        await  expect(this.page.locator('[data-test="error"]')  ).toContainText(expectedMessage);
+        await  expect(this.errorMessage).toContainText(expectedMessage);
     }
 
     async finishOrder(): Promise<void> {
-        await this.page.locator('[data-test="finish"]').click();
+        await this.finishButton.click();
     }
 
     async verifyOrderCompletion(): Promise<void> {
-        await expect(this.page.locator('.complete-header')).toHaveText('Thank you for your order!');
+        await expect(this.completeHeader).toHaveText('Thank you for your order!');
     }       
 }
