@@ -31,7 +31,7 @@ test('TC_010: Checkout with valid details @checkout', async ({page}) => {
   await checkoutPage.fillCheckoutInformation(checkoutData.firstName, checkoutData.lastName, checkoutData.postalCode);
   await checkoutPage.continueCheckout();
 
-    await expect(page).toHaveURL(/checkout-step-two/);
+    await expect(page).toHaveURL(routes.checkoutOverview);
 });
 
 test('TC_011: Checkout with missing first name @checkout @negative', async ({page}) => {
