@@ -38,14 +38,14 @@ test('TC_011: Checkout with missing first name @checkout @negative', async ({pag
     await checkoutPage.fillCheckoutInformation('', checkoutData.lastName, checkoutData.postalCode);
     await checkoutPage.continueCheckout();
 
-    await expect(page.locator('[data-test="error"]')).toHaveText(messages.firstNameRequired);
+    await checkoutPage.verifyValidationMessage(messages.firstNameRequired);
 });
 
 test('TC_012: Checkout with missing postal code @checkout @negative', async ({page}) => {
     await checkoutPage.fillCheckoutInformation(checkoutData.firstName, checkoutData.lastName, '');
     await checkoutPage.continueCheckout();
 
-    await expect(page.locator('[data-test="error"]')).toHaveText(messages.postalCodeRequired);
+    await checkoutPage.verifyValidationMessage(messages.postalCodeRequired);
 });
 
 test('TC_014: Complete checkout process @checkout', async ({page}) => {
@@ -58,6 +58,5 @@ test('TC_014: Complete checkout process @checkout', async ({page}) => {
 test('TC_015: Cancel checkout process @checkout', async ({page}) => {
     await checkoutPage.fillCheckoutInformation(checkoutData.firstName, checkoutData.lastName, checkoutData.postalCode);
     await checkoutPage.continueCheckout();
-    await page.locator('[data-test="cancel"]').click();
-    await expect(page).toHaveURL(routes.products);
+    await checkoutPage.cancelCheckout();
 });

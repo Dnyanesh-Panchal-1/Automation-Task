@@ -44,4 +44,10 @@ export class LoginPage {
   async verifyErrorMessage(expectedMessage: string): Promise<void> { 
     await expect(this.errorMessage).toContainText(expectedMessage); 
   } 
+
+  async Logout(): Promise<void> {
+    await this.page.click('#react-burger-menu-btn');
+    await this.page.click('#logout_sidebar_link');
+    await expect(this.page).toHaveURL(routes.login);
+  }
 } 

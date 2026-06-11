@@ -33,7 +33,7 @@ test('TC_007: Remove a product from a cart @cart @regression', async ({page}) =>
     await productsPage.addProductToCart('sauce-labs-backpack');
     await productsPage.removeProductFromCart('sauce-labs-backpack');
     
-    await expect(page.locator('.shopping_cart_badge')).toHaveCount(0);
+    await productsPage.verifyCartIsEmpty();
 });
 
 test('TC_008: Add multiple products to a cart @cart @regression', async ({page}) => {
@@ -47,7 +47,7 @@ test('TC_009: Cart should show selected products @cart @regression', async ({pag
     await productsPage.addProductToCart('sauce-labs-backpack');
     await productsPage.goToCart();
 
-    await expect(page.getByText(products[0].name)).toBeVisible();
+    await productsPage.verifyProductInCart(products[0].name);
 });
 
 

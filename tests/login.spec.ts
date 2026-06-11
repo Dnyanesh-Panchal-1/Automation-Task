@@ -39,8 +39,6 @@ test('TC_013: User should be able to logout successfully @smoke', async ({page})
   const loginPage = new LoginPage(page);
   await loginPage.goto();
   await loginPage.login(validUser.username, validUser.password);
- await page.locator('#react-burger-menu-btn').click();
-  await page.locator('#logout_sidebar_link').click();
-  await expect(page).toHaveURL(routes.login);
+  await loginPage.Logout();
 });
 

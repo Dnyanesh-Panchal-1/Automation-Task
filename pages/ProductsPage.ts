@@ -16,6 +16,9 @@ export class ProductsPage {
         await expect(this.inventoryItems).toHaveCount(6);
     }
 
+   async verifyCartIsEmpty(): Promise<void> {
+        await expect(this.cartBadge).toBeHidden();
+    }
     async addProductToCart(productId: string): Promise<void> {
         await this.page.locator(`[data-test="add-to-cart-${productId}"]`).click();
     }
@@ -30,5 +33,9 @@ export class ProductsPage {
 
     async verifyCartCount(expectedCount: number): Promise<void> {
         await expect(this.cartBadge).toHaveText(expectedCount.toString());
+    }
+
+    async verifyProductInCart(productName: string): Promise<void> {
+        await expect(this.page.locator('.cart_item')).toContainText(productName);
     }
 }
