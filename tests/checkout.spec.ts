@@ -1,4 +1,4 @@
-import {test, expect} from '@playwright/test';
+import {test} from '@playwright/test';
 import {users} from '../test-data/users';
 import {LoginPage} from '../pages/LoginPage';
 import {ProductsPage} from '../pages/ProductsPage';
@@ -6,7 +6,6 @@ import {CartPage} from '../pages/CartPage';
 import {CheckoutPage} from '../pages/CheckoutPage';
 import {checkoutData} from '../test-data/checkoutData';
 import {messages} from '../constants/messages';
-import { routes } from '../constants/routes';
 
 const validUser = users[0];
 let loginPage: LoginPage;
@@ -27,35 +26,34 @@ test.beforeEach(async ({page}) => {
     await cartPage.checkout();
 });
 
-test('TC_010: Checkout with valid details @checkout', async ({page}) => {
+test('TC_010: Checkout with valid details @checkout', async ({}) => {
   await checkoutPage.fillCheckoutInformation(checkoutData.firstName, checkoutData.lastName, checkoutData.postalCode);
   await checkoutPage.continueCheckout();
-
-    await expect(page).toHaveURL(routes.checkoutOverview);
+  await checkoutPage.verifyCheckoutOverviewPage();
 });
 
-test('TC_011: Checkout with missing first name @checkout @negative', async ({page}) => {
+test('TC_011: Checkout with missing first name @checkout @negative', async ({}) => {
     await checkoutPage.fillCheckoutInformation('', checkoutData.lastName, checkoutData.postalCode);
     await checkoutPage.continueCheckout();
 
     await checkoutPage.verifyValidationMessage(messages.firstNameRequired);
 });
 
-test('TC_012: Checkout with missing postal code @checkout @negative', async ({page}) => {
+test('TC_012: Checkout with missing postal code @checkout @negative', async ({}) => {
     await checkoutPage.fillCheckoutInformation(checkoutData.firstName, checkoutData.lastName, '');
     await checkoutPage.continueCheckout();
 
     await checkoutPage.verifyValidationMessage(messages.postalCodeRequired);
 });
 
-test('TC_014: Complete checkout process @checkout', async ({page}) => {
+test('TC_014: Complete checkout process @checkout', async ({}) => {
     await checkoutPage.fillCheckoutInformation(checkoutData.firstName, checkoutData.lastName, checkoutData.postalCode);
     await checkoutPage.continueCheckout();
     await checkoutPage.finishOrder();
     await checkoutPage.verifyOrderCompletion();
 });
 
-test('TC_015: Cancel checkout process @checkout', async ({page}) => {
+test('TC_015: Cancel checkout process @checkout', async ({}) => {
     await checkoutPage.fillCheckoutInformation(checkoutData.firstName, checkoutData.lastName, checkoutData.postalCode);
     await checkoutPage.continueCheckout();
     await checkoutPage.cancelCheckout();

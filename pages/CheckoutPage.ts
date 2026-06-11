@@ -1,7 +1,7 @@
 import {Page, expect, Locator} from '@playwright/test';
 import { routes } from '../constants/routes';
 import { messages } from '../constants/messages';
-import {checkoutData} from '../test-data/checkoutData';
+import { selectors } from '../constants/selectors';
 
 export class CheckoutPage {
     readonly page: Page;
@@ -16,14 +16,14 @@ export class CheckoutPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.firstNameInput = page.locator('[data-test="firstName"]');
-        this.lastNameInput = page.locator('[data-test="lastName"]');
-        this.postalCodeInput = page.locator('[data-test="postalCode"]');
-        this.continueButton = page.locator('[data-test="continue"]');
-        this.finishButton = page.locator('[data-test="finish"]');
-        this.errorMessage = page.locator('[data-test="error"]');
-        this.completeHeader = page.locator('.complete-header');
-        this.cancelButton = page.locator('[data-test="cancel"]');
+        this.firstNameInput = page.locator(selectors.firstNameInput);
+        this.lastNameInput = page.locator(selectors.lastNameInput);
+        this.postalCodeInput = page.locator(selectors.postalCodeInput);
+        this.continueButton = page.locator(selectors.continueButton);
+        this.finishButton = page.locator(selectors.finishButton);
+        this.errorMessage = page.locator(selectors.errorMessage);
+        this.completeHeader = page.locator(selectors.completeHeader);
+        this.cancelButton = page.locator(selectors.cancelButton);
     }
     async fillCheckoutInformation(firstName: string, lastName: string, postalCode: string): Promise<void> {
         await this.firstNameInput.fill(firstName);
@@ -37,6 +37,9 @@ export class CheckoutPage {
 
     async cancelCheckout(): Promise<void> {
         await this.cancelButton.click();
+    }
+
+    async verifyCheckoutCancelled(): Promise<void> {
         await expect(this.page).toHaveURL(routes.products);
     }
 
@@ -52,5 +55,8 @@ export class CheckoutPage {
         await expect(this.completeHeader).toHaveText(messages.orderSuccess);
     }      
     
+    async verifyCheckoutOverviewPage(): Promise<void> {
+        await expect(this.page).toHaveURL(routes.checkoutOverview);
+    }
    
 }

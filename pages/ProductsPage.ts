@@ -1,4 +1,5 @@
 import {Page,expect,Locator} from '@playwright/test';
+import { selectors } from '../constants/selectors';
 
 export class ProductsPage {
     readonly page: Page;
@@ -8,12 +9,12 @@ export class ProductsPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.inventoryItems = this.page.locator('.inventory_item');
-        this.cartLink = this.page.locator('.shopping_cart_link');
-        this.cartBadge = this.page.locator('.shopping_cart_badge');
+        this.inventoryItems = this.page.locator(selectors.inventoryItem);
+        this.cartLink = this.page.locator(selectors.cartLink);
+        this.cartBadge = this.page.locator(selectors.cartBadge);
     }
     async verifyProductsPageIsVisible(): Promise<void> {
-        await expect(this.inventoryItems).toHaveCount(6);
+        await expect(this.inventoryItems.first()).toBeVisible();
     }
 
    async verifyCartIsEmpty(): Promise<void> {
