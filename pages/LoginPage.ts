@@ -1,6 +1,11 @@
 import { Page, Locator, expect } from '@playwright/test'; 
 import { routes } from '../constants/routes';
 import { messages } from '../constants/messages';
+import {users} from '../test-data/users';
+
+const validUser = users[0];
+const lockedOutUser = users[1];
+
 
 export class LoginPage { 
   readonly page: Page; 
@@ -25,7 +30,10 @@ export class LoginPage {
     await this.usernameInput.fill(username); 
     await this.passwordInput.fill(password); 
     await this.loginButton.click(); 
+    await expect(this.page).toHaveURL(routes.products);
   } 
+
+ 
  
   async verifyLoginPageIsVisible(): Promise<void> { 
     await expect(this.usernameInput).toBeVisible(); 

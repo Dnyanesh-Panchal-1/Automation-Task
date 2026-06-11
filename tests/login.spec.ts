@@ -19,7 +19,6 @@ test('TC_002: Valid user should be able to login @smoke', async ({page}) => {
   const loginPage = new LoginPage(page);
   await loginPage.goto();
   await loginPage.login(validUser.username, validUser.password);
-  await expect(page).toHaveURL(routes.products);
 });
 
 test('TC_003: Invalid password should display error message @negative', async ({page}) => {
